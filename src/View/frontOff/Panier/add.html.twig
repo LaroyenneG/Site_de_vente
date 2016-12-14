@@ -1,0 +1,29 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+
+
+    {% if addInfo is defined and addInfo is not empty %}
+    <div class="container">
+
+            <div class="msg msg-success msg-success-text"> <span class="glyphicon glyphicon glyphicon-ok"></span> Vous avez bien ajouter l'élément au panier </div>
+            <fieldset>
+                <img style="width:120px;height:120px" src="{{asset('images/')}}{{addInfo.photo}}" alt="image de {{addInfo.nom}}"><br>
+                <label>Nom du logiciel : {{ addInfo.nom }}</label><br>
+                <label>Total du panier : {{ total.total }}</label>
+            </fieldset>
+
+
+
+
+            <a class="bouttonContinuerAchat" href="{{ path('panier.showAccueilClient') }}">Continuer les achats</a>
+            <a class="bouttonPasserCommande" href="{{path('commande.userCommandeAll')}}">Passer la commande</a>
+        </div>
+
+        {% endif %}
+
+        {% if   app.session.get('logged') is defined and  app.session.get('logged') == 1 %}
+
+        {% endif %}
+
+
+{% endblock %}

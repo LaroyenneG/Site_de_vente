@@ -1,0 +1,27 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <div class="container">
+    <legend> Récapitulatif des commandes</legend>
+            <label class="recapCommande">Commande n° {{ commande.id }} du {{ commande.date_achat }}, de {{ commande.prix }}€, état = {{ commande.libelle }}</label>
+            <table class="table table-hover table-responsive">
+                <caption>Liste des produits commandee</caption>
+                <thead>
+                <tr><th>Photo</th><th>Nom</th><th>Quantite</th></tr>
+                </thead>
+                <tbody>
+                {% for panier in paniers if paniers is not empty %}
+                    {% if panier.commande_id == commande.id %}
+                        <tr>
+                            <td>
+                                <img style="width:40px;height:40px" src="{{asset('images/')}}{{panier.photo}}" alt="image de {{panier.nom}}" >
+                            </td>
+                            <td>{{ panier.nom }}</td><td>{{panier.quantite}}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                <tbody>
+            </table>
+        <br><br>
+        <a class="bouttonPasserCommande"  href="{{ path('commande.show') }}">Voir les commandes</a>
+    </div>
+{% endblock %}

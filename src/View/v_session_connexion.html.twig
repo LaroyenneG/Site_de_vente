@@ -1,0 +1,18 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+
+    <div class = "container">
+        <div class="wrapper">
+            <form action="{{ path('user.validFormlogin') }}" method="post" name="Login_Form" class="form-signin">
+                <h3 class="form-signin-heading">Bienvenue! Connectez-vous </h3>
+                <hr class="colorgraph"><br>
+
+                <input type="text" class="form-control" name="login" placeholder="Identifiant" required="" autofocus="" />
+                <input type="password" class="form-control" name="password" placeholder="Mot de passe" required=""/>
+
+                <button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="Submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

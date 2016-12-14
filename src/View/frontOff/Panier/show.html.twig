@@ -1,0 +1,52 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <div class="container">
+    <table class="table table-hover table-bordered">
+        <legend>Panier</legend>
+        <thead>
+        <tr>
+            <th>Photo</th><th>Nom produit</th><th>Date d'ajout</th><th>Prix</th><th>Quantite</th>
+            {% if   app.session.get('droit') is defined and  app.session.get('droit') == 'DROITclient' %}
+                <th>Modification</th><th>Supprimer</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for donnees in dataPanier if dataPanier is not empty %}
+            <form method="post" action="{{ path('panier.updatePanierUser')}}">
+
+                <input name="token"  type="hidden"  value="{% if token is defined %}{{ token }}{% endif %}"/>
+
+                <input name="id"  type="hidden" value="{{donnees.id}}" />
+                <tr>
+                    <td><img style="width:40px;height:40px" src="{{asset('images/')}}{{donnees.photo}}" alt="image de {{donnees.nom}}" >
+                    </td><td>{{ donnees.nom }}</td><td>{{donnees.dateAjoutPanier}}</td><td>{{donnees.prix}}</td>
+                    <td><select name="quantite">
+                            <option value="{{ donnees.quantite }}">{{ donnees.quantite }}</option>
+                            {% for i in 1..30 %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select></td>
+                    {% if   app.session.get('droit') is defined and  app.session.get('droit') == 'DROITclient' %}
+                        <td>
+                            <button><img src="{{asset('images/Ajouter.png')}}" style="width:40px;height:40px; display: block; margin: auto "  ></button>
+                        </td>
+                        <td>
+                            <a href="{{ path('panier.deletePanierUser', {id: donnees.id})}}"><img src="{{asset('images/Supprimer.png')}}" style="width:40px;height:40px; display: block; margin: auto "></a>
+                        </td>
+                    {% endif %}
+                </tr>
+            </form>
+        {% endfor %}
+
+        <tbody>
+    </table>
+
+    <br><br>
+     <span>
+    <label class="Panier">Total du panier : {{ total.total }}</label>
+
+    <a class="bouttonPasserCommande" href="{{ path('commande.userCommandeAll') }}">Passer la commande</a>
+         </span>
+    </div>
+{% endblock %}

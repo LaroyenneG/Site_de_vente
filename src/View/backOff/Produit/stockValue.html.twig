@@ -1,0 +1,31 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <div class="container">
+        <table class="table table-hover table-responsive">
+            <legend>Recapitulatifs des stocks </legend>
+            <thead>
+            <tr>
+                <th>Id</th><th>Photo</th><th>Nom du produit</th><th>Stock</th><th>Disponibilité</th><th>État</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for produit in data if data is not empty %}
+                {% if produit.dispo ==0 or produit.warning =='Attention' %}
+                <tr class="alert-danger">
+            {% else %}
+                <tr>
+             {% endif %}
+                    <td>{{produit.id}}</td><td><img style="width:40px;height:40px" src="{{asset('images/')}}{{produit.photo}}" alt="image de {{produit.libelle}}" ></td>
+                    <td>{{produit.nom}}</td><td>{{produit.stock}}</td><td>{% if produit.dispo==1 %} <img style="width: 30px; height: 30px; " src=" {{asset('images/Disponible.png')}}">
+                        {% else %}<img style="width: 30px; height: 30px; " src=" {{asset('images/NonDisponible.png')}}">{% endif %}</td>
+                    {% if produit.warning =='Ok' %}
+                    <td> <img style="width: 30px; height: 30px; " src=" {{asset('images/Ok.png')}}"></td>
+                        {% else %}
+                    <td> <img style="width: 30px; height: 30px; " src=" {{asset('images/Warning.png')}}"> </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

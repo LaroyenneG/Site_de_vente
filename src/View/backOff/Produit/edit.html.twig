@@ -1,0 +1,110 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+
+
+
+		<div class="container">
+			<form method="post" action="{{ path('produit.validFormEdit') }}" enctype="multipart/form-data">
+
+				<input name="token"  type="hidden"  value="{% if token is defined %}{{ token }}{% endif %}"/>
+
+
+				<legend>Modifier le produit </legend> <br><br>
+
+
+				<input name="id"  type="hidden" value="{{donnees.id}}" />
+
+				<div class="form-group">
+					<label for="exampleInputEmail1"> Nom du logiciel :  </label>
+					<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrer le nom du logiciel"
+						   value="{{donnees.nom|default('')}}" name="nom"/>
+                    {% if erreurs.nom is defined %}
+						<div class="msg msg-danger"> <span class="glyphicon glyphicon glyphicon-remove"></span>{{erreurs.nom}}</div>
+                    {% endif %}
+				</div>
+
+				<div class="form-group">
+					<label for="exampleSelect1" >Type de logiciel : </label>
+					<select class="form-control" id="exampleSelect1" name="typeProduit_id">
+                        {% if  donnees.typeProduit_id is not defined or donnees.typeProduit_id is empty   %}
+							<option value="">Veuillez sélectionner le type de produit</option>
+                        {% endif %}
+                        {% for typeProduit in typeProduits %}
+							<option value="{{ typeProduit.id }}"
+                                    {% if donnees.typeProduit_id is defined and typeProduit.id == donnees.typeProduit_id %}selected{% endif %}>
+                                {{ typeProduit.libelle }}
+							</option>
+                        {% endfor %}
+					</select>
+                    {% if erreurs.typeProduit_id is defined %}
+
+						<div class="msg msg-danger"> <span class="glyphicon glyphicon glyphicon-remove"></span>{{erreurs.typeProduit_id}}</div>
+
+                    {% endif %}
+				</div>
+
+				<div class="form-group">
+					<label for="exampleInputEmail1">Prix : </label>
+					<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrer le prix du logiciel"
+						   value="{{donnees.prix|default('')}}" name="prix"/>
+                    {% if erreurs.prix is defined %}
+
+						<div class="msg msg-danger"> <span class="glyphicon glyphicon glyphicon-remove"></span>{{erreurs.prix}}</div>
+                    {% endif %}
+				</div>
+
+				<div class="form-group">
+					<label for="exampleInputEmail1">Stock : </label>
+					<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrer le stock"
+						   value="{{donnees.stock|default('')}}" name="stock"/>
+                    {% if erreurs.stock is defined %}
+
+						<div class="msg msg-danger"> <span class="glyphicon glyphicon glyphicon-remove"></span>{{erreurs.stock}}</div>
+                    {% endif %}
+				</div>
+
+				<div class="form-group">
+					<label for="exampleSelect1" >Disponibilite : </label>
+					<select class="form-control" id="exampleSelect2" name="dispo">
+                        {% if  donnees.dispo is not defined or donnees.dispo is empty   %}
+							<option value="">Veuillez sélectionner</option>
+							<option value="1">Disponible</option>
+							<option value="0">Indisponible</option>
+						{% elseif donnees.dispo == 1 %}
+								<option value="1">Disponible</option>
+								<option value="0">Indisponible</option>
+							{% else %}
+								<option value="0">Indisponible</option>
+								<option value="1">Disponible</option>
+                        {% endif %}
+
+					</select>
+                    {% if erreurs.dispo is defined %}
+						<div class="msg msg-danger"> <span class="glyphicon glyphicon glyphicon-remove"></span>{{erreurs.dispo}}</div>
+                    {% endif %}
+				</div>
+
+				<div class="form-group">
+					<label>Recherchez votre image </label>
+					<div class="input-group">
+                            <span class="input-group-btn">
+                                <span class="btn btn-default btn-file btn-primary"> Rechercher <input type="file" id="imgInp" name="photo"> </span>
+                            </span>
+						<input type="text" class="form-control" name="photo" value="{{donnees.photo|default('')}}" readonly>
+					</div>
+					<img style="width: 100px; height: 100px;" id='img-upload'/>
+				</div>
+
+
+			{#	<button type="submit" class="btn btn-primary" name="modifierProduit">Envoyer</button>#}
+				<input type="hidden" id="_method" name="_method" value="put" />
+				<input type="submit" class="btn btn-primary" name="modifierProduit" value="Modifier" />
+			</form>
+		</div>
+
+
+
+
+
+
+{% endblock %}

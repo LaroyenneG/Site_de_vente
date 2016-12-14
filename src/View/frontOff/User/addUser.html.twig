@@ -1,0 +1,104 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+
+    <form method="post" action="{{ path('user.validFormAddUser') }}">
+
+        <input name="token"  type="hidden"  value="{% if token is defined %}{{ token }}{% endif %}"/>
+
+        <div class="container">
+
+            <legend>Créer votre profil : </legend> <br><br>
+
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email : </label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrez votre email"
+                        name="email" value="{{donnees.email|default('')}}"/>
+                {% if erreurs.email is defined %}
+                    <div class="msg msg-danger"> <span class="glyphicon glyphicon glyphicon-remove"></span>{{erreurs.email}}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">Mot de passe :</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                       name="password" value="{{donnees.password|default('')}}"/>
+                {% if erreurs.password is defined %}
+                    <div class="msg msg-danger"> <span class="glyphicon glyphicon glyphicon-remove"></span>{{erreurs.password}}</div>
+                {% endif %}
+
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">Verification mot de passe :</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                       name="password2"/>
+
+                {% if erreurs.password2 is defined %}
+
+                    <div class="msg msg-danger"> <span class="glyphicon glyphicon glyphicon-remove"></span>{{erreurs.password2}}</div>
+                {% endif %}
+
+            </div>
+
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Login : </label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrez un login"
+                        name="login" value="{{donnees.login|default('')}}"/>
+                {% if erreurs.login is defined %}
+
+                    <div class="msg msg-danger"> <span class="glyphicon glyphicon glyphicon-remove"></span>{{erreurs.login}}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Nom :  </label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrez votre nom"
+                        name="nom" value="{{donnees.nom|default('')}}"/>
+                {% if erreurs.nom is defined %}
+                    <div class="msg msg-danger"> <span class="glyphicon glyphicon glyphicon-remove"></span>{{erreurs.nom}}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1"> Code Postal :  </label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrez votre code Postale"
+                       name="code_postal" value="{{donnees.code_postal|default('')}}"/>
+                {% if erreurs.code_postal is defined %}
+                    <div class="msg msg-danger"> <span class="glyphicon glyphicon glyphicon-remove"></span>{{erreurs.code_postal}}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Ville  :  </label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrez votre ville"
+                        name="ville" value="{{donnees.ville|default('')}}"/>
+                {% if erreurs.ville is defined %}
+                    <div class="msg msg-danger"> <span class="glyphicon glyphicon glyphicon-remove"></span>{{erreurs.ville}}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Adresse postale :  </label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrez votre adresse postale"
+                        name="adresse" value="{{donnees.adresse|default('')}}"/>
+                {% if erreurs.adresse is defined %}
+                    <div class="msg msg-danger"> <span class="glyphicon glyphicon glyphicon-remove"></span>{{erreurs.adresse}}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <img src="{{ builder }}" />
+                   <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrer le captcha d'au dessus" type="text" name="maPhrase">
+
+                {% if erreurs.captcha is defined %}
+                    <div class="msg msg-danger"> <span class="glyphicon glyphicon glyphicon-remove"></span>{{erreurs.captcha}}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary" name="AjouterUser">Envoyer</button>
+        </div>
+    </form>
+
+{% endblock %}

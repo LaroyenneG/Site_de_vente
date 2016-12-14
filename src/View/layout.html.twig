@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/x-icon" href="http://www.iut-bm.univ-fcomte.fr/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logi'Vente</title>
+  <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}" >
+
+</head>
+<body>
+
+{% if   app.session.get('droit') is defined and  app.session.get('droit') == 'DROITadmin' %}
+  {% include "nav_backOff.html.twig" %}
+{% elseif   app.session.get('droit') is defined and  app.session.get('droit') == 'DROITclient' %}
+  {% include "nav_frontOff.html.twig" %}
+{% else %}
+  {% include "nav_home.html.twig" %}
+{% endif%}
+
+{% block contenu %}
+  Site de vente projet S3 web IUT
+{% endblock %}
+
+<script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-filestyle.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-filestyle.min.js') }}"></script>
+<script>
+
+    $(document).ready( function() {
+        $(document).on('change', '.btn-file :file', function() {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function(event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if( input.length ) {
+                input.val(log);
+            } else {
+                if( log ) alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp").change(function(){
+            readURL(this);
+        });
+    });
+
+   /* $(":file").filestyle({
+        buttonName: "btn-info"
+    });*/
+
+</script>
+</body>
+</html>
+

@@ -1,0 +1,13 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="msg msg-success msg-success-text"> <span class="glyphicon glyphicon glyphicon-ok"></span> Félicitation ! Votre profil à été mis à jour !</div>
+                <a class="bouttonContinuerAchat" href="{{ path('panier.showAccueilClient') }}">Continuer les achats</a>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <div class="container">
+        <legend>Recapitulatifs des commandes</legend>
+        <table class="table">
+            <thead>
+            <tr><th>Id</th><th>Nom de l'utilisateur </th><th>Prix</th><th>Date de l'achat</th><th>Etat</th><th>Validation</th><th>Informations</th></tr>
+            </thead>
+            <tbody>
+            {% for commande in data if data is not empty %}
+            <form method="post" action="{{ path('commande.changeEtat')}}">
+
+                <input name="token"  type="hidden"  value="{% if token is defined %}{{ token }}{% endif %}"/>
+
+                <input name="id"  type="hidden" value="{{commande.id}}" />
+                <tr>
+                    <td>{{ commande.id }}</td><td>{{ commande.nom }}</td><td>{{ commande.prix }}€</td><td>{{ commande.date_achat }}</td>
+                    <td><select name="etat" >
+                            {% for etat in etats %}
+                                <option value="{{ etat.id }}"
+                                        {% if commande.etat_id is defined and etat.id == commande.etat_id %} selected {% endif %}>
+                                    {{ etat.libelle }}
+                                </option>
+                            {% endfor %}
+                        </select></td>
+                    <td><button class="bouttonValider">Valider</button></td>
+                    <td><a href="{{ path('commande.describe',{id: commande.id}) }}" class="bouttonDetails"> Details</a></td>
+                </tr>
+                </form>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

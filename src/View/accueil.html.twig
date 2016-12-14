@@ -1,0 +1,48 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+
+    <div class="bienvenue container">
+        <h1> Bienvenue sur notre site</h1>
+        <h2>Vous trouverez ici tout type de logiciel ! </h2>
+        <h2> N'hésitez pas à vous inscrire pour effectuer des achats !</h2>
+
+    </div>
+    <div class="container slide">
+        <div class="col-sm-12 ">
+            <div id="hero-wrapper">
+                <div class="carousel-wrapper">
+                    <div id="hero-carousel" class="carousel slide carousel-fade">
+                        <ol class="carousel-indicators">
+                            <li data-target="#hero-carousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#hero-carousel" data-slide-to="1"></li>
+                            <li data-target="#hero-carousel" data-slide-to="2"></li>
+                            <li data-target="#hero-carousel" data-slide-to="3"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="{{asset('images/Noel.jpg')}}" class="img-responsive" style="width: 700px; height: 438px;">
+                            </div>
+                            <div class="item">
+                                <img src="{{asset('images/antiVirus.jpg')}}" class="img-responsive" style="width: 700px; height: 438px;">
+                            </div>
+                            <div class="item">
+                                <img src="{{asset('images/photo.jpg')}}" class="img-responsive" style="width: 700px; height: 438px;">
+                            </div>
+                            <div class="item">
+                                <img src="{{asset('images/logiciel.jpg')}}" class="img-responsive" style="width: 700px; height: 438px;">
+                            </div>
+                        </div>
+
+                        <a class="left carousel-control" href="#hero-carousel" data-slide="prev">
+                            <i class="fa fa-chevron-left left"></i>
+                        </a>
+                        <a class="right carousel-control" href="#hero-carousel" data-slide="next">
+                            <i class="fa fa-chevron-right right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

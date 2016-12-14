@@ -1,0 +1,13 @@
+{
+    "require": {
+    	"silex/silex": "~2.0",
+        "twig/twig": "^1.25",
+        "symfony/twig-bridge": "^3.1",
+        "doctrine/dbal": "^2.5",
+        "symfony/validator": "^3.1",
+        "silex/web-profiler": "^2.0",
+        "symfony/asset": "~3.1",
+        "gregwar/captcha": "^1.1",
+        "gregwar/captcha-bundle": "^2.0"
+    }
+}

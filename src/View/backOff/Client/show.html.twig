@@ -1,0 +1,20 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <div class="container">
+        <table class="table table-hover table-responsive">
+            <legend>Liste des clients</legend>
+            <thead>
+            <tr><th>Id</th><th>Login</th><th>Nom</th><th>Email</th><th>Code postal</th><th>Ville</th><th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in data if data is not empty %}
+                <tr>
+                    <td>{{user.id}}</td><td>{{user.login}}</td><td>{{user.nom}}</td><td>{{user.email}}</td><td>{{user.code_postal}}</td><td>{{user.ville}}</td>
+                    <td><a href="{{ path('client.delete', {id: user.id}) }}" class="bouttonDetails">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

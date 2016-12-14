@@ -1,0 +1,142 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+
+
+
+<div class="centreAcceuil" xmlns="http://www.w3.org/1999/html">
+
+
+
+
+	<div id="network-popUp" class="container-fluid" style="display: block; border-width: 3px;">
+		<form method="post" action="{{ path('panier.showAccueilClient') }}">
+
+			<div class="form-item form-item-node-type form-type-select form-group">
+				<select class="form-control form-select ajax-processed" id="edit-node-type" name="Type">
+
+
+                    {% if  t.typeProduit_id is not defined or t.typeProduit_id is empty   %}
+						<option value="">Un type de logiciel en particulier ?</option>
+                    {% endif %}
+                    {% for t in dataType %}
+						<option value="{{t.libelle}}"> {{ t.libelle }} </option>
+                    {% endfor %}
+					<input class="ButtonSite" type="submit" name="ok" value="Rechercher" />
+                    </select>
+			</div>
+
+		</form>
+	</div>
+
+
+
+
+	<!-- info si commande ajouté -->
+	{% if addInfo is defined and addInfo is not empty %}
+
+	{% endif %}
+
+
+	<div class="container-fluid">
+		<div class="col-xs-5 {% if dataPanier is empty %}col-lg-12 {% else %}col-lg-7 {% endif %} table-responsive">
+
+			<table class="table-bordered">
+				<caption>Logiciels en vente :</caption>
+
+				<tr>
+					{% set i=0 %}
+					{% for produit in dataProduit if dataProduit is not empty   %}
+
+					{% if i  is divisible by(5) %}
+				<tr>
+					{% endif %}
+					<td>
+						{% set i=i+1 %}
+						<table class="table table-hover table-responsive">
+							<tr>
+								<td><a href="{{ path('produit.describe', {id: produit.id})}}"><img style="width:100px;height:100px" src="{{asset('images/')}}{{produit.photo}}" alt="image de {{produit.nom}}" ></a>
+								<br><br>{{produit.nom}}<br>
+                                    </td>
+
+							</tr>
+						</table>
+					</td>
+					{% if i  is divisible by(5) %}
+				</tr>
+				{% endif %}
+
+				{% endfor %}
+			</table>
+		</div>
+
+
+
+		{% if dataPanier is not empty %}
+		<div class="table-responsive">
+		<div class="col-xs-12 col-lg-12">
+
+			<table class="table table-hover table-bordered">
+				<caption> Panier :</caption>
+				<thead>
+				<tr>
+					<th>Photo</th><th>Nom produit</th><th>Date ajout</th><th>Prix</th><th>Quantité</th>
+					{% if   app.session.get('droit') is defined and  app.session.get('droit') == 'DROITclient' %}
+						<th>Modification</th><th>Supprimer</th>
+					{% endif %}
+				</tr>
+				</thead>
+				<tbody>
+				{% for donnees in dataPanier if dataPanier is not empty %}
+				<form method="post" action="{{ path('panier.updatePanierUser')}}">
+
+					<input name="token"  type="hidden"  value="{% if token is defined %}{{ token }}{% endif %}"/>
+
+					<input name="id"  type="hidden" value="{{donnees.id}}" />
+					<tr>
+						<td><img style="width:40px;height:40px" src="{{asset('images/')}}{{donnees.photo}}" alt="image de {{donnees.nom}}" >
+						</td><td>{{ donnees.nom }}</td><td>{{donnees.dateAjoutPanier}}</td><td>{{donnees.prix}}</td>
+						<td>
+							<select name="quantite">
+								<option value="{{ donnees.quantite }}">{{ donnees.quantite }}</option>
+								{% for i in 1..donnees.stock %}
+									<option value="{{ i }}">{{ i }}</option>
+								{% endfor %}
+							</select>
+
+							{% if erreurs is defined and erreurs[donnees.id] is defined and erreurs[donnees.id] is not empty %}
+								<h6>{{ erreurs[donnees.id] }}</h6>
+							{% endif %}
+
+						</td>
+						{% if   app.session.get('droit') is defined and  app.session.get('droit') == 'DROITclient' %}
+							<td>
+								<button><img src="{{asset('images/Ajouter.png')}}" style="width:40px;height:40px; display: block; margin: auto "  ></button>
+							</td>
+							<td>
+								<a href="{{ path('panier.deletePanierUser', {id: donnees.id})}}"><img src="{{asset('images/Supprimer.png')}}" style="width:40px;height:40px; display: block; margin: auto "></a>
+							</td>
+						{% endif %}
+					</tr>
+				</form>
+				{% endfor %}
+
+				<tbody>
+			</table>
+			<span>
+				<label class="Panier">Total du panier : {{ total.total }} €</label>
+				<a class="bouttonPasserCommande" href="{{ path('commande.userCommandeAll') }}">Passer la commande</a>
+			</span>
+			{% if erreurs is defined and erreurs is not empty %}
+				<div class="alert alert-danger">
+					<strong>Attention !</strong> {{ erreurs.stock }}
+				</div>
+			{% endif %}
+
+		</div>
+
+	</div>
+	</div>
+	{% endif %}
+</div>
+
+{% endblock %}

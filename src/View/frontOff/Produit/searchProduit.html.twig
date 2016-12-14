@@ -1,0 +1,22 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+
+    <div class="container rechercheProduit" >
+        <legend class="rechercheProduit">Rechercher un produit</legend>
+
+    </div>
+    <div class="container">
+
+        <div id="network-popUp" class="container-fluid" style="display: block; border-width: 3px;">
+            <form method="post" action="{{ path('produit.search') }}">
+
+                <div class="form-item form-item-node-type form-type-select form-group">
+
+                        <input class="form-control" name="recherhce"  type="text"  size="18" value="" /><br>
+                        <input class="ButtonSite" type="submit" name="ok" value="Rechercher" />
+
+                </div>
+
+            </form>
+        </div>
+{% endblock %}

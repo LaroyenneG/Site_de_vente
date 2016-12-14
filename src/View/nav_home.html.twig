@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <img src="{{asset('images/Banniere.png')}}" class="img-responsive">
+<nav class="navbar navbar-inverse" >
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://localhost/Site_de_vente/web/app_dev.php/">Site de vente logiciel</a>
+        </div>
+
+        <ul class="nav navbar-nav">
+            <li class="active"> <a href="#"> Acceuil</a> </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Logiciels
+                    <span class="caret"></span> </a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ path('produit.sale')  }}">Afficher les logiciels</a> </li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if   app.session.get('logged') is defined and  app.session.get('logged') == 1 %}
+                <li class="name" style="color: #d58512"> Bonjour {{ app.session.get('login') }}</li>
+                <li><a href="{{ path('user.logout')  }}"><span class="glyphicon glyphicon-log-in"></span> Déconnexion</a></li>
+            {% else %}
+                <li><a href="{{ path('user.addUser')  }}"><span class="glyphicon glyphicon-user"></span> S'inscire</a></li>
+                <li><a href="{{ path('user.login')  }}"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+</div>

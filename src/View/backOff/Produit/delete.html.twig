@@ -1,0 +1,22 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+<form method="post" action="{{ path('produit.validFormDelete') }}">
+
+	<input name="token"  type="hidden"  value="{% if token is defined %}{{ token }}{% endif %}"/>
+
+<div class="container">
+	<fieldset>
+		<legend>Confirmer la suppression du produit suivant :</legend>
+
+		<input name="id"  type="hidden" value="{{donnees.id}}" />
+		<label></label>
+		<img style="width:200px;height:200px" src="{{asset('images/')}}{{donnees.photo}}" alt="image de {{donnees.libelle}}" /><br>
+		<label> <h2>{{donnees.nom}}</h2> </label> <br>
+		<input type="hidden" id="_method" name="_method" value="delete" />
+
+		<input type="submit" name="supprimerProduit" value="Supprimer" class="bouttonDetails" style=" margin-left: 50px;"/>
+
+	</fieldset>
+</div>
+</form>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <div class="container">
+        <br><br><br>
+        <h1 style="color:#ff0000;">Erreur : token invalide</h1>
+        <h3 style="text-align: center">token attendu : {{ tokenattendue }}</h3>
+        <h3 style="text-align: center">token reçu : {{ tokenrecu }}</h3>
+    </div>
+{% endblock %}
